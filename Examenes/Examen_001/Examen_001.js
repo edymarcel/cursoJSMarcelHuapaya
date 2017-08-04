@@ -221,7 +221,7 @@ Biblioteca.prototype.imprimirEstado = function(){
 	console.log("%cSECCIONES", "color: blue; font-size: 12; font-weight: bold; text-decoration: underline");
 	for (var indSecciones = 0 ; indSecciones<this._secciones.length; indSecciones ++){
 		var seccion = this._secciones[indSecciones];
-		console.log("%c" + indSecciones + ". Seccion " + seccion._nombre, "color: #2E64FE;" );
+		console.log("%c" + indSecciones + ". Sección " + seccion._nombre, "color: #2E64FE;" );
 
 		console.log(tab + ">> Número de libros: " + seccion._libros.length);
 
