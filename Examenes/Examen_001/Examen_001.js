@@ -229,7 +229,7 @@ Biblioteca.prototype.imprimirEstado = function(){
 
 	console.log("%cTotal de libros en la biblioteca: " + totalLibrosBiblioteca, "color:#2E64FE;");
 	console.log("%cTotal de libros prestados a los socios: " + totalLibrosPrestados, "color:#2E64FE;");
-//
+
 	console.log("%c///////////////////////FIN IMPRIMIR ESTADO BIBLIOTECA////////////////////////", "color: blue; font-size: 14; font-weight: bold");
 
 }
@@ -274,7 +274,7 @@ Socio.prototype.ejecutarCiclo = function(biblioteca){
 
 }
 
-//claseLibroSeccion, servira para gurdar informacion de un libro con su respectiva seccion
+//Clase LibroSeccion, servira para guardar informacion de un libro con su respectiva seccion
 function LibroSeccion(libro, seccion){
 	this._libro = libro;
 	this._seccion = seccion;
