@@ -1,0 +1,42 @@
+
+.resumenresultado{
+    
+    background-color: #f7c600;
+    border-width: 1px 1px 0;
+    border-color: #ebebeb;
+    border-style: solid;
+    padding: 0px;
+
+    width: 500px;
+    margin-left:auto;
+  	margin-right:auto;
+}
+
+
+#mensaje {
+	width: 1300px;
+	margin-left:auto;
+  	margin-right:auto;
+}
+
+
+.cabecera{
+	background: #d0b47e;	
+}
+
+#tabla{
+	border-spacing: 0px !important;
+	border: 1px solid #ebebeb;
+	width: 500px;
+	margin-left:auto;
+  	margin-right:auto;
+}
+
+
+.trcabecera{
+	border: 1px solid #ebebeb;
+}
+
+.trvalor{
+	border: 1px solid #ebebeb;
+}
