@@ -86,8 +86,7 @@ class Iphone{
 	}
 
 	pintarMensaje(idIphone, mensaje, esPropio, nombreUsuario) {
-		console.log("idIphone: " + this._idIphone);
-        var selector = "#iphone" + idIphone + " " + ".messages";
+		var selector = "#iphone" + idIphone + " " + ".messages";
         var misMensajes = document.querySelector(selector);
 
         var elementMessage = document.createElement("div");

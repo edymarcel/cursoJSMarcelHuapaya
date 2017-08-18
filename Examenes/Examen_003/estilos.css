@@ -1,0 +1,21 @@
+.listado{
+	/*border-right: 1px*/
+	border-width: 1px 1px 1px;
+    border-color: #ebebeb;
+    border-style: solid;
+    margin: 3px;
+}
+
+.detalle{
+	border-right: 1px;
+	border-color: #ebebeb;
+    border-style: solid;
+    margin: 3px;
+}
+.pagina{
+	margin: 3px;
+	display: inline-block;	
+}
+.negrita{
+	font-weight: bold;
+}
