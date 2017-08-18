@@ -180,10 +180,10 @@ class Jugador extends Persona{
 }
 
 class Equipo{
-	constructor(nombre){
+	constructor(nombre,entrenador){
 		this._nombre = nombre;
 		this._jugadores = [];
-		this._entrenador = new Entrenador();
+		this._entrenador = entrenador;
 		this.agregarJugadoresAEquipo();
 	}
 
@@ -429,13 +429,142 @@ class ResultadoAtaque{
 	}
 }
 
+class EntrenadorConEstrategia extends Entrenador{
+	constructor (tipo){
+		super();
+		this._tipo = tipo;//0:defensivo, 1: aleatorio, 2: Atacante
+		this._estrategia = new Estrategia(tipo);
+	}
+
+	elegirPlantillaParaPartido(equipo){
+		let arrayJugadores = equipo._jugadores;
+		let porteros = [];
+		let defensas = [];
+		let mediocentros = [];
+		let delanteros = [];
+
+		arrayJugadores = Utiles.ordenarArrayPorCampo(arrayJugadores, "_calidad");
+		for (let i = 0; i < arrayJugadores.length; i++) {
+			if(arrayJugadores[i]._posicion == "portero"){
+				porteros.push(arrayJugadores[i]);
+			}else if(arrayJugadores[i]._posicion == "defensa"){
+				defensas.push(arrayJugadores[i]);
+			}else if(arrayJugadores[i]._posicion == "mediocentro"){
+				mediocentros.push(arrayJugadores[i]);
+			}else if(arrayJugadores[i]._posicion == "delantero"){
+				delanteros.push(arrayJugadores[i]);
+			}
+
+		}
+		/*portero:1,
+			defensa:0,
+			medio:0,
+			delantero:0*/
+		
+		this.elegirMejorJugador(porteros, this._estrategia._formacion.portero, porteros, defensas, mediocentros, delanteros);
+		this.elegirMejorJugador(defensas, this._estrategia._formacion.defensa, porteros, defensas, mediocentros, delanteros);
+		this.elegirMejorJugador(mediocentros, this._estrategia._formacion.medio, porteros, defensas, mediocentros, delanteros);
+		this.elegirMejorJugador(delanteros, this._estrategia._formacion.delantero, porteros, defensas, mediocentros, delanteros);
+		console.log(this._plantilla);
+	}
+
+	elegirJugadorAleatorio(porteros, defensas, mediocentros, delanteros){
+		let arrayJugadores = porteros.concat(defensas).concat(mediocentros).concat(delanteros);
+
+		let numero = Utiles.generarNumeroAleatorioEntre(0,arrayJugadores.length-1);
+		let seleccionado = arrayJugadores[numero];		
+		this._plantilla.push(seleccionado);
+		if(porteros.indexOf(seleccionado)!=-1){
+			porteros.splice(porteros.indexOf(seleccionado), 1);
+		}
+		if(defensas.indexOf(seleccionado)!=-1){
+			defensas.splice(defensas.indexOf(seleccionado), 1);
+		}
+		if(mediocentros.indexOf(seleccionado)!=-1){
+			mediocentros.splice(mediocentros.indexOf(seleccionado), 1);
+		}
+		if(delanteros.indexOf(seleccionado)!=-1){
+			delanteros.splice(delanteros.indexOf(seleccionado), 1);
+		}
+
+	}
+
+	elegirMejorJugador(arrayDeJugadores, cantidad, porteros, defensas, mediocentros, delanteros){
+		let cont = 0
+		while(arrayDeJugadores.length>0 && (cont<cantidad)){
+			this._plantilla.push(arrayDeJugadores[0]);
+			arrayDeJugadores.splice(0, 1);
+			cont = cont +1;
+		}
+		if(cont<cantidad){
+			for (var i = 0; i < cantidad-cont; i++) {
+				this.elegirJugadorAleatorio(porteros, defensas, mediocentros, delanteros);				
+			}
+		}
+
+		//console.log(this._plantilla.length);
+
+	}
+
+}
+
+class Estrategia{
+	constructor(tipo){
+		this.tipo = tipo;////0:defensivo, 1: aleatorio, 2: Atacante
+		this._formacion = {
+			portero:1,
+			defensa:0,
+			medio:0,
+			delantero:0
+		}
+
+		this.devolverEstrategia();
+		console.log(this._formacion);
+	}
+
+	devolverEstrategia(){
+		if(this.tipo == 0){
+			this.devolverEstrategiaDefensivo();
+		}else if(this.tipo == 1){
+			this.devolverEstrategiaAleatorio();
+		}else if(this.tipo == 2){
+			this.devolverEstrategiaAtacante();
+		}
+	}
+
+	devolverEstrategiaAtacante(){
+		this._formacion.defensa = 3;
+		this._formacion.medio = 4;
+		this._formacion.delantero = 3;
+	}
+
+	devolverEstrategiaDefensivo(){
+		this._formacion.defensa = 4;
+		this._formacion.medio = 5;
+		this._formacion.delantero = 1;
+	}
+
+	devolverEstrategiaAleatorio(){
+		let falta = 10;
+		this._formacion.defensa = Utiles.generarNumeroAleatorioEntre(1,falta);
+		falta = falta - this._formacion.defensa;
+		if(falta>0){
+			this._formacion.medio = Utiles.generarNumeroAleatorioEntre(1,falta);
+		}
+		falta = falta - this._formacion.medio;
+		if(falta>0){
+			this._formacion.delantero = falta;
+		}
+	}
+}
+
 var equipo1 = null;
 var equipo2 = null;
 var partido = null;
 window.onload = function (){
 
-	equipo1 = new Equipo("Real Madrid");
-	equipo2 = new Equipo("Barcelona");
+	equipo1 = new Equipo("Real Madrid", new EntrenadorConEstrategia(1));
+	equipo2 = new Equipo("Barcelona", new EntrenadorConEstrategia(1));
 	partido = new Partido(equipo1, equipo2);
 
 	partido.jugarPartido();

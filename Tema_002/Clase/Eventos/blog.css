@@ -1,0 +1,18 @@
+h1{
+	background-color: red;
+}
+
+h2{
+	background-color: blue;
+}
+
+body{
+	background-color: green;
+
+}
+
+
+header{
+	background-color: yellow;
+	padding: 10px;
+}
