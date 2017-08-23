@@ -1,0 +1,72 @@
+<h3>${titulo}</h3>
+
+<div class="well span8 offset2">
+    <div class="panel panel-primary perfil">
+        <div class="panel-heading">
+            <h3 class="panel-title">Información</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row-fluid">
+                <div class="span3">
+                    <img class="img-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="User Pic">
+                </div>
+                <div class="span6"  id="noEditable">
+                    <strong>Username: ${username}</strong>
+                    <br>
+                    <table class="table table-condensed table-responsive table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Nombre:</td>
+                                <td>${nombre}</td>
+                            </tr>
+                            <tr>
+                                <td>Apellidos:</td>
+                                <td>${apellidos}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>${email}</td>
+                            </tr>                            
+                        </tbody>
+                    </table>                    
+                </div>
+                <div  class="span6" id="editable" style="display:none">
+                	<table class="table table-condensed table-responsive table-user-information">
+                        <tbody>
+                        	<tr>
+                                <td><strong>Username:</strong></td>
+                                <td><input type="text" id="username" value="${username}"></td>
+                            </tr>
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" id="nombre" value="${nombre}"></td>
+                            </tr>
+                            <tr>
+                                <td>Apellidos:</td>
+                                <td><input type="text" id="apellidos" value="${apellidos}"></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><input type="text" id="email" value="${email}">
+                                <input type="hidden" id="id" value="${id}">
+                                <input type="hidden" id="password" value="${password}">
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                    <p id="mensaje" class="text-danger"></p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <span class="pull-right">
+                            <button class="btn btn-warning" type="button"
+                                    id="btnEditarPerfil"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                            <button class="btn btn-warning" type="button"
+                                    id="btnGuardarPerfil" style="display:none"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                            <button class="btn btn-danger" type="button"
+                                    id="btnEliminarPerfil"><span class="glyphicon glyphicon-remove-sign"></span> Eliminar</button>
+                        </span>
+        </div>
+    </div>
+</div>

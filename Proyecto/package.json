@@ -1,0 +1,22 @@
+{
+  "name": "proyectofinal",
+  "version": "1.0.0",
+  "description": "Este es el proyecto final",
+  "main": "index.js",
+  "config":{
+    "port": "8081"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node serve.js"
+  },
+  "keywords": [
+    "prueba"
+  ],
+  "author": "Marcel",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.4"
+  }
+}
