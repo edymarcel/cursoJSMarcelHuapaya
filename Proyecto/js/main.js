@@ -6,7 +6,8 @@ class Main {
 		this._apiClient = new ApiClient()
 		this._userservice = new UserService(this._apiClient);
 		this._comidaApiClient = new ComidaApiClient(this._apiClient);
-		this._modalController = new ModalController();
+		this._bebidaApiClient = new BebidaApiClient(this._apiClient);
+		this._customPanelController = new CustomPanelController();
 		this._pages = [];	
 	}
 
@@ -18,22 +19,22 @@ class Main {
 	}
 
 	crearPaginas(){		
-		let login = new LoginPage("1", "Login", false, "Login", Constantes.URL_LOGIN, false, "login.html", this._navigation, this._divGeneral, this._userservice);
+		let login = new LoginPage("1", "Login", false, "Login", Constantes.URL_LOGIN, false, "login.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice);
 		this._pages.push(login);
 
-		let crearCuenta = new CrearCuenta("2","Crear Cuenta", false, "Crear Cuenta", Constantes.URL_CREAR_CUENTA, false, "crearcuenta.html", this._navigation, this._divGeneral, this._userservice);
+		let crearCuenta = new CrearCuenta("2","Crear Cuenta", false, "Crear Cuenta", Constantes.URL_CREAR_CUENTA, false, "crearcuenta.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice);
 		this._pages.push(crearCuenta);
 
-		let home = new HomePage("3", "Inicio", true, "Pagina Principal", Constantes.URL_HOME, true, "template.html", this._navigation, this._divGeneral, this._userservice);
+		let home = new HomePage("3", "Inicio", true, "Pagina Principal", Constantes.URL_HOME, true, "template.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice, this._bebidaApiClient, this._comidaApiClient);
 		this._pages.push(home);
 
-		let comidas = new ComidasPage("4", "Comidas", true, "Gestión de Comidas", Constantes.URL_COMIDAS, true, "template.html", this._navigation, this._divGeneral, this._userservice, this._comidaApiClient, this._modalController);
+		let comidas = new ComidasPage("4", "Comidas", true, "Gestión de Comidas", Constantes.URL_COMIDAS, true, "template.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice, this._comidaApiClient);
 		this._pages.push(comidas);
 
-		let bebidas = new BebidasPage("5", "Bebidas", true, "Gestión de Bebidas", Constantes.URL_BEBIDAS, true, "template.html", this._navigation, this._divGeneral, this._userservice);
+		let bebidas = new BebidasPage("5", "Bebidas", true, "Gestión de Bebidas", Constantes.URL_BEBIDAS, true, "template.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice, this._bebidaApiClient);
 		this._pages.push(bebidas);
 
-		let perfil = new PerfilPage("6", "Perfil", false, "Perfil de usuario", Constantes.URL_PERFIL, true, "template.html", this._navigation, this._divGeneral, this._userservice);
+		let perfil = new PerfilPage("6", "Perfil", false, "Perfil de usuario", Constantes.URL_PERFIL, true, "template.html", this._navigation, this._divGeneral, this._customPanelController, this._userservice);
 		this._pages.push(perfil);
 	}
 

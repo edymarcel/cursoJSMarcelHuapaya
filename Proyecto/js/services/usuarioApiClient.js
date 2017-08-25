@@ -6,18 +6,16 @@ class UserApiClient{
 		this._apiClient = apiClient;
 	}
 
-	//Este metodo devuelve una promesa
 	validateLogin(user){
 		let completeUrl = this._baseLoginUrl;
 		let response = null;
 		let objeto = user.createObjectFromUser();
 		let promise = this._apiClient.post(completeUrl, objeto);
-		var anotherPromise = promise.then((data)=>{
+		var anotherPromise = promise.then((data)=>{			
 			let userObject = new Usuario();
 			userObject.createUserFromObject(data);			
 			userObject._password = user._password;
-			user = userObject;
-			console.log(user);
+			user = userObject;			
 			response = {
 				"user":userObject,
 				"result":true,
@@ -29,7 +27,7 @@ class UserApiClient{
 			response = {
 				"user":user,
 				"result":false,
-				"mensaje":"Usuario/password inválido"
+				"mensaje":reason.message
 			}
 		    return response;
 		});
@@ -40,6 +38,7 @@ class UserApiClient{
 	//register user
 	registrarUsuario(user){
 		let completeUrl = this._baseUrl;
+		console.log(user);
 		let objeto = user.createObjectFromUser();
 		let promise = this._apiClient.post(completeUrl, objeto);
 		var anotherPromise = promise.then((data)=>{
@@ -54,13 +53,17 @@ class UserApiClient{
 	}	
 
 	editarUsuario(user){
+		console.log(user);
 		let completeUrl = this._baseUrl + "/" + user._id;
 		let response = null;
 		let objeto = user.createObjectFromUser();
 		let promise = this._apiClient.put(completeUrl, objeto);
-		var anotherPromise = promise.then((data)=>{
-			let user = new Usuario();
-			user.createUserFromObject(data);
+		var anotherPromise = promise.then((data)=>{			
+			let userObject = new Usuario();
+			userObject.createUserFromObject(data);			
+			userObject._password = user._password;
+			user = userObject;
+			//console.log(user);
 			let response = new RespuestaServicio(user, true, "Grabado con éxito", null)
 			return response;			
 		}).catch((reason)=> {
@@ -78,7 +81,6 @@ class UserApiClient{
 		let response = null;
 		let promise = this._apiClient.get(completeUrl, null);
 		var anotherPromise = promise.then((data)=>{			
-			/*let user = Util.createUserFromObject(data);*/
 			let user = new Usuario();
 			user.createUserFromObject(data);
 			response = {
@@ -86,6 +88,33 @@ class UserApiClient{
 				"result":true,
 				"mensaje":"OK"
 			}
+			return response;
+		}).catch((reason)=> {
+			console.log(reason);
+			response = {
+				"user":null,
+				"result":false,
+				"mensaje":reason.message
+			}
+		    return response;
+		});
+
+		return anotherPromise;
+	}
+
+	eliminarUsuario(user){
+		let completeUrl = this._baseUrl + "/" + user._id;
+		let response = null;
+		let objeto = user.createObjectFromUser();
+		let promise = this._apiClient.delete(completeUrl, objeto);
+		var anotherPromise = promise.then((data)=>{
+			let user = new Usuario();
+			user.createUserFromObject(data);
+			let response = new RespuestaServicio(user, true, "Eliminado con éxito", null)
+			return response;			
+		}).catch((reason)=> {
+			console.log(reason);
+		    let response = new RespuestaServicio(null, false, "Ocurrió un error al eliminar", null)
 			return response;
 		});
 

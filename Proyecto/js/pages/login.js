@@ -1,6 +1,6 @@
 class LoginPage extends Page{
-	constructor(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor, userservice){
-		super(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor);
+	constructor(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor, customPanelController, userservice){
+		super(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor, customPanelController);
 		this._userservice = userservice;
 	}
 
@@ -20,21 +20,22 @@ class LoginPage extends Page{
 					this.resultadoLogin(data, chkRecordar);		
 					Loader.desactivaLoading();	
 				}
-			);
+		);
 	}
 
 	resultadoLogin(data, recordar){
-		if(data.result){			
+		if(data.result){		
 			this._userservice._user = data.user;
-			this._userservice.setUserIntoLocalStorage();
+			this._userservice.setUserIntoLocalStorage();			
 			if(recordar){
 				this._userservice.setRecordarIntoLocalStorage();
 			}
 
 			this._navigation.navigateToUrl(Constantes.URL_HOME, null);
 		}else{
-			let mensaje = this._contenedor.querySelector("#mensaje")
+			let mensaje = document.createElement("div");
 			mensaje.innerHTML = data.mensaje;
+			this._customPanelController.pintarMensajeError("Error", mensaje);
 		}
 	}
 

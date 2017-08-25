@@ -15,7 +15,7 @@ class BebidaApiClient{
 			return response;
 		}).catch((reason)=> {
 			console.log(reason);
-			let response = new RespuestaServicio(null, false, "Ocurrió un error al grabar", null)
+			let response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 
@@ -34,7 +34,7 @@ class BebidaApiClient{
 			return response;			
 		}).catch((reason)=> {
 			console.log(reason);
-		    response = new RespuestaServicio(null, false, "Ocurrió un error al grabar", null)
+		    response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 
@@ -50,6 +50,10 @@ class BebidaApiClient{
 			let bebida = new Bebida();
 			bebida.createBebidaFromObject(data);
 			response = new RespuestaServicio(bebida, true, "OK", null)
+			return response;
+		}).catch((reason)=> {
+			console.log(reason);
+		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener bebida", null)
 			return response;
 		});
 
@@ -68,6 +72,10 @@ class BebidaApiClient{
 				bebidas.push(bebida)
 			}
 			return bebidas;
+		}).catch((reason)=> {
+			console.log(reason);
+		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener bebidas", null)
+			return response;
 		});
 
 		return anotherPromise;

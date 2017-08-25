@@ -5,6 +5,7 @@ class Loader{
     }
 
     static desactivaLoading(){
+        let loading = document.body.querySelector("#loading");    	
         loading.setAttribute("style", "display:none");
     }
 }

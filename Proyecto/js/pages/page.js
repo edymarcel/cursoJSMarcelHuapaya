@@ -1,5 +1,5 @@
 class Page {
-	constructor(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor){
+	constructor(id, label, espartemenu, titulo, url, autenticado, html, navigation, contenedor, customPanelController){
 		this._id = id;
 		this._label = label;
 		this._espartemenu = espartemenu;
@@ -8,7 +8,8 @@ class Page {
 		this._autenticado = autenticado;
 		this._html =html;
 		this._navigation =navigation;
-		this._contenedor =contenedor;		
+		this._contenedor =contenedor;	
+		this._customPanelController = customPanelController;	
 	}
 
 	leerTemplate(html) {
@@ -20,7 +21,5 @@ class Page {
                 return content;
             });
         return promise;
-    }
-
-	
+    }	
 }

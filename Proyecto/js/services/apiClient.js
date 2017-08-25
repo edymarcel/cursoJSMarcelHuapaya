@@ -1,103 +1,142 @@
-class ApiClient{
-	constructor(){
+class ApiClient {
+    constructor() {
 
-	}
-	
-	get(url, params){
-		var headers = new Headers();
-		headers.append("Content-Type", "application/json");
+    }
 
-		let config = {
-			method:"GET",
-			headers: headers
-		};
+    get(url, data) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
 
-		let promise = fetch(url, config).then((response)=>{
-			return response.json();
-		});
-		
-		return promise;
-	}
+        let config = {
+            method: "GET",
+            headers: headers
+        };
 
-	post(url, data){
-		var headers = new Headers();
-		headers.append("Content-Type", "application/json");
+        if (data) {
+            let jsonData = JSON.stringify(data);
+            config.body = jsonData;
+        }
 
-		let config = {
-			method:"POST",
-			headers: headers
-		};
+        let miPromesa = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((reason)=> {
+                console.log(reason);
 
-		if(data){
-			let jsonData = JSON.stringify(data);
-			config.body = jsonData; 
-		}
+                reject({
+                    message:"Error de conexión con el servicio"
+                });
+            });
+        });
 
-		let promise = fetch(url, config).then((response)=>{
-			if(response.status>=200 && response.status <300){
-				return response.json();
-			}else{
-				return Promise.reject("Error: " + response.status);
-			}
-			
-		});
-		
-		return promise;
-	}
+        return miPromesa;
+    }
 
-	put(url, data){
-		
-		var headers = new Headers();
-		headers.append("Content-Type", "application/json");
+    post(url, data) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
 
-		let config = {
-			method:"PUT",
-			headers: headers
-		};
+        let config = {
+            method: "POST",
+            headers: headers
+        };
 
-		if(data){
-			let jsonData = JSON.stringify(data);
-			config.body = jsonData; 
-		}
+        if (data) {
+            let jsonData = JSON.stringify(data);
+            config.body = jsonData;
+        }
 
-		console.log(url);
-		let promise = fetch(url, config).then((response)=>{
-			if(response.status>=200 && response.status <300){
-				return response.json();
-			}else{
-				console.log(response);
-				return Promise.reject("Error: " + response.status);
-			}
-			
-		});
-		
-		return promise;
-	}
+        let miPromesa = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((reason)=> {
+                console.log(reason);
+                reject({
+                    message:"Error de conexión con el servicio"
+                });
+            });
+        });
 
-	delete(url, data){
-		var headers = new Headers();
-		headers.append("Content-Type", "application/json");
+        return miPromesa;
+    }
 
-		let config = {
-			method:"DELETE",
-			headers: headers
-		};
+    put(url, data) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
 
-		if(data){
-			let jsonData = JSON.stringify(data);
-			config.body = jsonData; 
-		}
-			
-		console.log(url);
-		let promise = fetch(url, config).then((response)=>{
-			if(response.status>=200 && response.status <300){
-				return response.text();
-			}else{
-				return Promise.reject("Error: " + response.text());
-			}
-			
-		});
-		
-		return promise;		
-	}
+        let config = {
+            method: "PUT",
+            headers: headers
+        };
+
+        if (data) {
+            let jsonData = JSON.stringify(data);
+            config.body = jsonData;
+        }
+
+        let miPromesa = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((reason)=> {
+                console.log(reason);
+                reject({
+                    message:"Error de conexión con el servicio"
+                });
+            });
+        });
+
+        return miPromesa;
+    }
+
+    delete(url, data) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        let config = {
+            method: "DELETE",
+            headers: headers
+        };
+
+        if (data) {
+            let jsonData = JSON.stringify(data);
+            config.body = jsonData;
+        }
+
+        let miPromesa = new Promise((resolve, reject) => {
+            fetch(url, config).then((response) => {
+                response.json().then((data) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        resolve(data);
+                    } else {
+                        reject(data);
+                    }
+                });
+            }).catch((reason)=> {
+                console.log(reason);
+                reject({
+                    message:"Error de conexión con el servicio"
+                });
+            });
+        });
+
+        return miPromesa;
+    }
 }

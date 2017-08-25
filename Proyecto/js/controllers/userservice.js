@@ -25,6 +25,11 @@ class UserService {
 		return this.getXApiClient().editarUsuario(user);
 	}
 
+	eliminarUsuario(username, password, email, apellidos, nombre, id){
+		let user = new Usuario(username, password, email, apellidos, nombre, id);
+		return this.getXApiClient().eliminarUsuario(user);
+	}
+
 	getXApiClient(){
 		if(this._xApiClient == null){
 			this._xApiClient = new UserApiClient(this._apiClient);
@@ -64,7 +69,11 @@ class UserService {
 		if(!localStorage.getItem(item)){
 			result = null;
 		}else{
-			result = JSON.parse(localStorage.getItem(item));
+			if((localStorage.getItem(item)=='undefined') || (typeof localStorage.getItem(item)=='undefined')){
+				this.removeItemInLocalStorage(item);
+			}else{
+				result = JSON.parse(localStorage.getItem(item));
+			}		
 		}
 		return result;
 	}
@@ -78,7 +87,7 @@ class UserService {
 		localStorage.removeItem(item);
 	}
 
-	removeUserInLocalStorage(){
+	removeUserAndRecordarInLocalStorage(){
 		this.removeItemInLocalStorage('user');
 		this.removeItemInLocalStorage('recordar');
 	}

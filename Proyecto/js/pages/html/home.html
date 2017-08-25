@@ -1,2 +1,41 @@
-<h3>${titulo}</h3>
-<p>Bienvenidos</p>
+<h3 class="main-title">${titulo}</h3>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="col-lg-12">
+            <p id="mensajebarra" class="text-danger"></p>
+        </div>
+        <!-- Example Bar Chart Card -->
+        <div class="card mb-3" id="cuerpo">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8 my-auto">
+                        <canvas id="canvasbar"></canvas>
+                    </div>
+                    <div class="col-sm-4 text-center my-resumen">
+                    	<div class="my-resumen-title">Resumen comidas:</div>
+                        <div class="h4 mb-0 text-primary" id="totalEntrante"></div>
+                        <div class="small text-muted">Total de entrantes</div>
+                        <hr>
+                        <div class="h4 mb-0 text-warning" id="totalPrincipal"></div>
+                        <div class="small text-muted">Total comida principal</div>
+                        <hr>
+                        <div class="h4 mb-0 text-success" id="totalPostre"></div>
+                        <div class="small text-muted">Total de postres</div>
+                    </div>
+                </div>
+            </div>            
+        </div>        
+    </div>
+    <div class="col-lg-4">
+        <div class="col-lg-12">
+            <p id="mensajepie" class="text-danger"></p>
+        </div>
+        <!-- Example Pie Chart Card -->
+        <div class="card mb-3" id="cuerpo">
+            <div class="card-body">
+                <canvas id="canvaspie"></canvas>
+            </div>            
+        </div>        
+    </div>
+</div>

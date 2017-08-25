@@ -29,9 +29,18 @@ class NavigationController{
 			if(this._userservice.getUserFromLocalStorage()==null){
 				this.navigateToUrl(Constantes.URL_LOGIN, data);				
 			}else{
-				page.init(data);	
+				//Validar si usuario almacenado en localstorge no ha sido eliminado
+				Loader.activaLoading();
+				this._userservice.obtenerUsuario().then((response)=>{
+					if(response.result){
+						page.init(data);	
+					}else{
+						this.navigateToUrl(Constantes.URL_LOGIN, data);	
+					}
+					Loader.desactivaLoading();
+				});		
 			}			
-		}else{
+		}else{//no necesita autenticacion
 			page.init(data);
 		}
 		

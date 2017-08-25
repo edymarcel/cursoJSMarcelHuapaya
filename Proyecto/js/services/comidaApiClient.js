@@ -15,7 +15,7 @@ class ComidaApiClient{
 			return response;
 		}).catch((reason)=> {
 			console.log(reason);
-			let response = new RespuestaServicio(null, false, "Ocurrió un error al grabar", null)
+			let response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 
@@ -34,7 +34,7 @@ class ComidaApiClient{
 			return response;			
 		}).catch((reason)=> {
 			console.log(reason);
-		    response = new RespuestaServicio(null, false, "Ocurrió un error al grabar", null)
+		    response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 
@@ -50,6 +50,10 @@ class ComidaApiClient{
 			let comida = new Comida();
 			comida.createComidaFromObject(data);
 			response = new RespuestaServicio(comida, true, "OK", null)
+			return response;
+		}).catch((reason)=> {
+			console.log(reason);
+		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener comida", null)
 			return response;
 		});
 
@@ -68,6 +72,10 @@ class ComidaApiClient{
 				comidas.push(comida)
 			}
 			return comidas;
+		}).catch((reason)=> {
+			console.log(reason);
+		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener comidas", null)
+			return response;
 		});
 
 		return anotherPromise;

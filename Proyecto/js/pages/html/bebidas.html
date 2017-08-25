@@ -1,90 +1,93 @@
-<h3>${titulo}</h3>
+<h3  class="main-title">${titulo}</h3>
 <div class="row clearfix">
-		<div class="col-md-12 column">
-		    <button id="add-row" type="button" class="btn btn-primary btn-md left-block">
-              <span class="glyphicon glyphicon-plus"></span> Agregar Bebida
-            </button>
-			<table class="table table-striped" id="tab_logic">
-				<thead>
-					<tr>
-						<th><span class="glyphicon glyphicon-glass"></span></th>
-						<th class="text-center">
-							Grados
-						</th>
-						<th class="text-center">
-							Precio
-						</th>
-						<th class="text-center">
-							Calorías
-						</th>
-						<th class="text-center">
-							existencias
-						</th>
-						<th class="text-center">
-							nombre
-						</th>						
-						<th class="text-center">Acciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="infotype0">
-						<td>Sí</td>
-						<td>
-						    <div class="form-group" id="editable1">
-    					    <input type="text" id="txtGrados" class="form-control" placeholder="Grados" required="true">
-    					    </div>
-    					    <span id="noeditable1"></span>
-						</td>
-						<td>
-                            <div class="form-group" id="editable1">
-    					    <input type="text" id="txtPrecio" class="form-control" placeholder="Precio" required="true">
-    					    </div>
-						</td>
-						<td>
-                            <div class="form-group" id="editable1">
-    					    <input type="text" id="txtCaloria" class="form-control" placeholder="Calorías" required="true">
-    					    </div>
-						</td>
-						<td>
-                            <div class="form-group" id="editable1">
-    					    <input type="text" id="txtExistencias" class="form-control" placeholder="Existencias" required="true">
-    					    </div>
-						</td>
-						<td>
-                            <div class="form-group" id="editable1">
-    					    <input type="text" id="txtNombre" class="form-control" placeholder="Nombre" required="true">
-    					    </div>
-						</td>
-						<td class="text-center"><button class="btn btn-info btn-xs ver"><span class="glyphicon glyphicon-eye-open"></span>Ver</button>							
-						</td>
-					</tr> 
-					<tr id="detalle0">
+    <div class="col-md-12 column">
+        <button id="btnNuevoBebida" type="button" class="btn btn-primary btn-md left-block">
+            <span class="glyphicon glyphicon-plus"></span> Agregar Bebida
+        </button>
+        <p id="mensajeTabla" class="text-danger"></p>
+        <table class="table table-striped" id="tab_logic">
+            <thead>
+                <tr>
+                    <th class="text-center"><span class="glyphicon glyphicon-glass"></span></th>
+                    <th class="text-center">
+                        Precio
+                    </th>
+                    <th class="text-center">
+                        existencias
+                    </th>
+                    <th class="text-center">
+                        nombre
+                    </th>
+                    <th class="text-center col-md-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="info0">
+                    <td class="text-center">Sí</td>
+                    <td class="text-center">
+                        1000
+                    </td>
+                    <td class="text-center">
+                        35
+                    </td>
+                    <td class="text-center">
+                        Pisco
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-info btn-xs" id="verdetalle0"><span class="glyphicon glyphicon-eye-open"></span> Ver</button>
+                        <button class="btn btn-info btn-xs" id="ocultardetalle0"><span class="glyphicon glyphicon-eye-close"></span> Ocultar</button>
+                    </td>
+                </tr>
+                <tr id="detalle0">
+                    <td class="col-md-12" colspan="5">
+                        <div class="col-md-12">
+                            <p id="mensajedet" class="text-danger"></p>
+                            <div align="right" id="contieneBoton">
+                                <button class="btn btn-info btn-xs edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span></button>
+                            </div>
+                            <label>Bebida Alcoholica :
+                                <input type="checkbox" id="chkRecordar">
+                            </label>
+                            <br/>
+                            <label>Grados :</label>
+                            <input type='text' class='form-control' id="txtGrados" value=''>
+                            <label>Precio : </label>
+                            <input type='text' class='form-control' id="txtPrecio" value=''>
+                            <label>Calorías : </label>
+                            <input type='text' class='form-control' id="txtCalorias" value=''>
+                            <label>Existencias : </label>
+                            <input type='text' class='form-control' id="txtExistencias" value=''>
+                            <label>Nombre :</label>
+                            <input type='text' class='form-control' id="txtNombre" value=''>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 
+<tr id="detalle0">
 						<td class="col-md-12" colspan="7">
 							<div class="col-md-12">
-							<p id="mensaje" class="text-danger"></p>
-							<div align="right" id="contieneBoton"><button class="btn btn-info btn-xs edit"><span class="glyphicon glyphicon-pencil"></span></button>
-							<button class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span></button>
-							</div>
-							<label>Tipo</label>
-							<select id="cmbTipo" class='form-control' >
-							  <option id="Entrante">Entrante</option>
-							  <option id="Principal">Principal</option>
-							  <option id="Postre">Postre</option>
-							</select>
-							<label>Precio : </label>
-							<input type='text' class='form-control' id="txtPrecio" value=''>
-							<label>Calorías : </label>
-							<input type='text' class='form-control' id="txtCalorias" value=''>
-							<label>Existencias : </label>
-							<input type='text' class='form-control' id="txtExistencias" value=''>
-							<label>Nombre :</label>
-							<input type='text' class='form-control' id="txtNombre" value=''>
+								<p id="mensajedet" class="text-danger"></p>
+								<div align="right" id="contieneBoton"><button class="btn btn-info btn-xs edit"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span></button>
+								</div>
+								<label>Bebida Alcoholica : <input type="checkbox" id="chkRecordar"></label>	<br/>						
+								<label>Grados :</label>
+								<input type='text' class='form-control' id="txtGrados" value=''>
+								<label>Precio : </label>
+								<input type='text' class='form-control' id="txtPrecio" value=''>
+								<label>Calorías : </label>
+								<input type='text' class='form-control' id="txtCalorias" value=''>
+								<label>Existencias : </label>
+								<input type='text' class='form-control' id="txtExistencias" value=''>
+								<label>Nombre :</label>
+								<input type='text' class='form-control' id="txtNombre" value=''>
 							</div>
 						</td>
 					</tr>
-
-
-				</tbody>
-			</table>
-		</div>
-	</div>
+-->
