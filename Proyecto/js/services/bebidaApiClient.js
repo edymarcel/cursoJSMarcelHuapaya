@@ -49,7 +49,11 @@ class BebidaApiClient{
 		var anotherPromise = promise.then((data)=>{			
 			let bebida = new Bebida();
 			bebida.createBebidaFromObject(data);
-			response = new RespuestaServicio(bebida, true, "OK", null)
+			if(comida!=null){
+				response = new RespuestaServicio(bebida, true, "OK", null)
+			}else{
+				response = new RespuestaServicio(comida, false, "Ocurrió un error al obtener Bebida", null)
+			}
 			return response;
 		}).catch((reason)=> {
 			console.log(reason);

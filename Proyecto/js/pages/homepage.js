@@ -19,7 +19,7 @@ class HomePage extends InnerPage{
 		promise.then(content => {
 				//console.log(content);
 				let titulo = this._titulo;
-				let templateString = eval('`' + content + '`');
+				let templateString = eval('`' + content.content + '`');
 
 				let contenido = this._contenedor.querySelector("#contenido");
 				if(contenido!=null){

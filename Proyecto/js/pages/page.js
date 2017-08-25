@@ -18,8 +18,25 @@ class Page {
         let promise = fetch(html)
             .then(res => res.text())
             .then(content => {
-                return content;
-            });
+            	if(content.indexOf("Error")<0){
+
+            		return {content:content,
+            			resultado:true
+            		};
+            	} else{
+            		return ({
+	                    content:"No se pudo leer la plantilla",
+            			resultado:false
+	                });
+            	}               
+            }).catch((reason)=> {
+				return ({
+                    message:"No se pudo leer la plantilla",
+            			resultado:false
+                });
+			});
+
+		
         return promise;
     }	
 }

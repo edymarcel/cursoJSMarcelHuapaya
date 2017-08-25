@@ -62,7 +62,7 @@ class CrearCuenta extends Page{
 		let promise = this.leerTemplate(this._html);
 		promise.then(content => {
 				let titulo = this._titulo;
-				let templateString = eval('`' + content + '`');
+				let templateString = eval('`' + content.content + '`');
 				this._contenedor.innerHTML = templateString;
 
 				let btnRegistrar = this._contenedor.querySelector("#btnRegistrar");

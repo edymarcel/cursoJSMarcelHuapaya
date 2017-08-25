@@ -182,46 +182,53 @@ class ComidasPage extends InnerPage{
 	verEditarComida(id){
 		Loader.activaLoading();
 		this._comidaApiClient.obtenerComida(id).then((data) => {
-			let divContenidoModal = document.createElement("div");
-			let comida = data._objeto;
-			let html = `
-				<p id="mensaje" class="text-danger"></p>
-				<div align="right" id="contieneBoton"><button type="button" class="btn btn-info" id="btnEditarComida"><span class='glyphicon glyphicon-pencil'></span> Editar </button></div>
-				<label>Tipo</label>
-				<select id="cmbTipo" class='form-control' >
-				  <option id="Entrante">Entrante</option>
-				  <option id="Principal">Principal</option>
-				  <option id="Postre">Postre</option>
-				</select>
-				<label>Precio (0-10000): </label>
-				<input type='text' class='form-control' id="txtPrecio" value='${comida._precio}'>
-				<label>Calorías (0-5000): </label>
-				<input type='text' class='form-control' id="txtCalorias" value='${comida._calorias}'>
-				<label>Existencias (0-1000): </label>
-				<input type='text' class='form-control' id="txtExistencias" value='${comida._existencias}'>
-				<label>Nombre :</label>
-				<input type='text' class='form-control' id="txtNombre" value='${comida._nombre}'>				
-			`;	
-			divContenidoModal.innerHTML = html;
-			//validaciones
-			let txtPrecio = divContenidoModal.querySelector("#txtPrecio");
-			txtPrecio.setAttribute("onkeypress", "return Utiles.isNumber(event)");
-			txtPrecio.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 10000, 0)");
-			let txtCalorias = divContenidoModal.querySelector("#txtCalorias");
-			txtCalorias.setAttribute("onkeypress", "return Utiles.isNumber(event)");
-			txtCalorias.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 5000, 0)");
-			let txtExistencias = divContenidoModal.querySelector("#txtExistencias");
-			txtExistencias.setAttribute("onkeypress", "return Utiles.isNumber(event)");
-			txtExistencias.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 1000, 0)");
-			let txtNombre = divContenidoModal.querySelector("#txtNombre");
-			txtNombre.setAttribute("onkeypress", "return Utiles.validaTamanoMaxMin(event,this, 100, 4)");
-			
-			let btnEditarComida = divContenidoModal.querySelector("#btnEditarComida");
-			let cmbTipo = divContenidoModal.querySelector("#cmbTipo");
-			cmbTipo.options.namedItem("" + comida._tipo).selected = true;
-			btnEditarComida.addEventListener("click", ()=>{this.editarComida(divContenidoModal, id)});
+			if(data._result){
+				let divContenidoModal = document.createElement("div");
+				let comida = data._objeto;
+				let html = `
+					<p id="mensaje" class="text-danger"></p>
+					<div align="right" id="contieneBoton"><button type="button" class="btn btn-info" id="btnEditarComida"><span class='glyphicon glyphicon-pencil'></span> Editar </button></div>
+					<label>Tipo</label>
+					<select id="cmbTipo" class='form-control' >
+					  <option id="Entrante">Entrante</option>
+					  <option id="Principal">Principal</option>
+					  <option id="Postre">Postre</option>
+					</select>
+					<label>Precio (0-10000): </label>
+					<input type='text' class='form-control' id="txtPrecio" value='${comida._precio}'>
+					<label>Calorías (0-5000): </label>
+					<input type='text' class='form-control' id="txtCalorias" value='${comida._calorias}'>
+					<label>Existencias (0-1000): </label>
+					<input type='text' class='form-control' id="txtExistencias" value='${comida._existencias}'>
+					<label>Nombre :</label>
+					<input type='text' class='form-control' id="txtNombre" value='${comida._nombre}'>				
+				`;	
+				divContenidoModal.innerHTML = html;
+				//validaciones
+				let txtPrecio = divContenidoModal.querySelector("#txtPrecio");
+				txtPrecio.setAttribute("onkeypress", "return Utiles.isNumber(event)");
+				txtPrecio.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 10000, 0)");
+				let txtCalorias = divContenidoModal.querySelector("#txtCalorias");
+				txtCalorias.setAttribute("onkeypress", "return Utiles.isNumber(event)");
+				txtCalorias.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 5000, 0)");
+				let txtExistencias = divContenidoModal.querySelector("#txtExistencias");
+				txtExistencias.setAttribute("onkeypress", "return Utiles.isNumber(event)");
+				txtExistencias.setAttribute("onkeyup", "Utiles.validaValorMaxMin(this, 1000, 0)");
+				let txtNombre = divContenidoModal.querySelector("#txtNombre");
+				txtNombre.setAttribute("onkeypress", "return Utiles.validaTamanoMaxMin(event,this, 100, 4)");
+				
+				let btnEditarComida = divContenidoModal.querySelector("#btnEditarComida");
+				let cmbTipo = divContenidoModal.querySelector("#cmbTipo");
+				cmbTipo.options.namedItem("" + comida._tipo).selected = true;
+				btnEditarComida.addEventListener("click", ()=>{this.editarComida(divContenidoModal, id)});
+				
+				this._customPanelController.openModal("Editar Comida", divContenidoModal);
+			}else{
+				let mensaje = document.createElement("div");
+				mensaje.innerHTML = data._mensaje;
+				this._customPanelController.pintarMensajeError("Error", mensaje);
+			}
 			Loader.desactivaLoading();	
-			this._customPanelController.openModal("Editar Comida", divContenidoModal);
 			
 		});			
 	}
@@ -229,23 +236,31 @@ class ComidasPage extends InnerPage{
 	verDetalleComida(id){
 		Loader.activaLoading();
 		this._comidaApiClient.obtenerComida(id).then((data) => {
-			let divContenidoModal = document.createElement("div");
-			let comida = data._objeto;
-			let html = `
-				<label>Tipo</label>
-				<input type='text' class='form-control' value='${comida._tipo}' disabled>
-				<label>Precio : </label>
-				<input type='text' class='form-control' value='${comida._precio}' disabled>
-				<label>Calorías : </label>
-				<input type='text' class='form-control' value='${comida._calorias}' disabled>
-				<label>Existencias : </label>
-				<input type='text' class='form-control' value='${comida._existencias}' disabled>
-				<label>Nombre :</label>
-				<input type='text' class='form-control' value='${comida._nombre}' disabled>				
-			`;	
-			divContenidoModal.innerHTML = html;			
+			if(data._result){
+				let divContenidoModal = document.createElement("div");
+				let comida = data._objeto;
+				let html = `
+					<label>Tipo</label>
+					<input type='text' class='form-control' value='${comida._tipo}' disabled>
+					<label>Precio : </label>
+					<input type='text' class='form-control' value='${comida._precio}' disabled>
+					<label>Calorías : </label>
+					<input type='text' class='form-control' value='${comida._calorias}' disabled>
+					<label>Existencias : </label>
+					<input type='text' class='form-control' value='${comida._existencias}' disabled>
+					<label>Nombre :</label>
+					<input type='text' class='form-control' value='${comida._nombre}' disabled>				
+				`;	
+				divContenidoModal.innerHTML = html;			
+				
+				this._customPanelController.openModal("Detalle Comida", divContenidoModal);
+			}else{
+				let mensaje = document.createElement("div");
+				mensaje.innerHTML = data._mensaje;
+				this._customPanelController.pintarMensajeError("Error", mensaje);
+			}
 			Loader.desactivaLoading();	
-			this._customPanelController.openModal("Detalle Comida", divContenidoModal);
+			
 		});			
 	}
 
@@ -292,7 +307,7 @@ class ComidasPage extends InnerPage{
 		let promise = this.leerTemplate(this._contenido);
 		promise.then(content => {
 				let titulo = this._titulo;
-				let templateString = eval('`' + content + '`');
+				let templateString = eval('`' + content.content + '`');
 
 				let contenido = this._contenedor.querySelector("#contenido");
 

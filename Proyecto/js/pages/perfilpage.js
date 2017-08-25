@@ -30,7 +30,7 @@ class PerfilPage extends InnerPage{
 						let nombre = user._nombre;
 						let apellidos = user._apellidos;
 						let email = user._email;
-						let templateString = eval('`' + content + '`');
+						let templateString = eval('`' + content.content + '`');
 						let contenido = this._contenedor.querySelector("#contenido");
 		                contenido.innerHTML = templateString;               
 						let btnEditarPerfil = contenido.querySelector("#btnEditarPerfil");

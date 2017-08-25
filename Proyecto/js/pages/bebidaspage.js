@@ -19,7 +19,7 @@ class BebidasPage extends InnerPage{
 		let promise = this.leerTemplate(this._contenido);
 		promise.then(content => {
 				let titulo = this._titulo;
-				let templateString = eval('`' + content + '`');
+				let templateString = eval('`' + content.content + '`');
 
 				let contenido = this._contenedor.querySelector("#contenido");
                 contenido.innerHTML = templateString;  

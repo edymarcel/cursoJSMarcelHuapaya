@@ -49,11 +49,15 @@ class ComidaApiClient{
 		var anotherPromise = promise.then((data)=>{			
 			let comida = new Comida();
 			comida.createComidaFromObject(data);
-			response = new RespuestaServicio(comida, true, "OK", null)
+			if(comida!=null){
+				response = new RespuestaServicio(comida, true, "OK", null)
+			}else{
+				response = new RespuestaServicio(comida, false, "Ocurrió un error al obtener comida", null)
+			}			
 			return response;
 		}).catch((reason)=> {
 			console.log(reason);
-		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener comida", null)
+		    response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 
@@ -63,6 +67,7 @@ class ComidaApiClient{
 	getAllComidas(){
 		let completeUrl = this._baseUrl;
 		let promise = this._apiClient.get(completeUrl, null);
+		let response = null;
 		var anotherPromise = promise.then((data)=>{
 			let comidas = [];
 			for (var i = 0; i < data.length; i++) {
@@ -74,7 +79,7 @@ class ComidaApiClient{
 			return comidas;
 		}).catch((reason)=> {
 			console.log(reason);
-		    response = new RespuestaServicio(null, false, "Ocurrió un error al obtener comidas", null)
+		    response = new RespuestaServicio(null, false, reason.message, null)
 			return response;
 		});
 

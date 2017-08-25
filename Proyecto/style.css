@@ -128,3 +128,9 @@ hr {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+.tablaInterna{
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+}
